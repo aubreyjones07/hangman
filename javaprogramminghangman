@@ -1,0 +1,230 @@
+package hangman2;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import java.util.Scanner; 
+
+public class HangMan2 {
+    
+    int correctGuesses = 0; 
+    boolean won = false; 
+    boolean run = true; 
+
+    public static void main(String[] args) {
+
+        java.util.Scanner input = new java.util.Scanner(System.in);
+        
+         
+        boolean answer = true; 
+        boolean answer2 = false;   
+        
+        
+        System.out.println("Would you Like to Play Hangman? \n True or False:  ");
+        answer = input.nextBoolean(); 
+        if(answer){
+        System.out.println("Let's Play!");
+        }
+     
+        else{
+        System.out.println("Maybe Next Time."); 
+        }  
+        HangMan2 name = new HangMan2(); 
+        name.explode();
+        name.playGame(); 
+        name.printHangman();
+        
+    }
+    
+        private static String [] words =  
+        {"javascript", "declaration", "object", "class", "failing"}; 
+        
+        private String wordIs; 
+        private ArrayList<Character> correctLetters; 
+        private ArrayList<Character> incorrectLetters; 
+        private int badGuesses; 
+        private Scanner stdin = new Scanner(System.in);
+        
+        
+        public void explode() {
+            this.wordIs = "Javascript"; 
+            
+            Random randIndex = new Random(); 
+            int index = randIndex.nextInt(words.length); 
+            this.wordIs = words[index];   
+            this.correctLetters = new ArrayList<Character>(); 
+            for (int i = 0; i < this.wordIs.length(); i++)
+                this.correctLetters.add('_'); 
+            this.incorrectLetters = new ArrayList<Character>();   
+        }
+        
+        public void playGame(){
+            
+            while (run){
+                
+                printHangman(); 
+                
+                for (int i = 0; i < this.correctLetters.size(); i++) 
+                    System.out.print(this.correctLetters.get(i) + "  "); 
+                
+                for (int i = 0; i < this.incorrectLetters.size(); i++)  
+                    System.out.print("\n \n" + this.incorrectLetters.get(i) + " = Incorrect");  
+                
+                System.out.println("\n \n Enter a Lower-Case Letter as Your Guess:  ");
+                String guess = stdin.nextLine();  
+                
+                if (!guess.isEmpty()) 
+                    handleGuess(guess.charAt(0)); 
+                
+            }
+            
+            System.out.println("The Word Was:  " + "\n" + wordIs);
+            if (won){
+                System.out.println("Congratulations, You're a Winner!");
+            }
+            else {
+                System.out.println("Sorry, You Lost. \n GAME OVER.");
+                    printHangman(); 
+            }
+            }
+        
+        private void printHangman() {
+            
+            int poleLines = 7; 
+            
+            String wl = "O";      
+            String wl2 = "|";
+            String wl3 = "/"; 
+            String wl4 = "/";
+            String wl5 = "W"; 
+            String wl6 ="/"; 
+            String wl7 = "/ /";   
+
+             
+        int badGuesses = this.incorrectLetters.size(); 
+        if (badGuesses == 0){
+        System.out.println("===========");
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("|     ");   
+        System.out.println("|     ");
+        System.out.println("==========="); 
+        }  
+         
+        if (badGuesses == 1){
+        System.out.println("===========");
+        System.out.println("|   " + wl);
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("|     ");   
+        System.out.println("===========");
+        }
+        if (badGuesses == 2){
+        System.out.println("===========");
+        System.out.println("|   " + wl+"\n" 
+                         + "|   " + wl2);
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("===========");
+        }
+        
+        if (badGuesses == 3){
+        System.out.println("===========");
+        System.out.println("|   " + wl +"\n"
+                         + "|   " +wl2 +"\n"
+                         + "|  " + wl3);
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("|     ");  
+        System.out.println("===========");
+        }
+        if (badGuesses == 4){
+        System.out.println("===========");
+        System.out.println("|   " + wl +"\n"
+                         + "|   " + wl2 +"\n"
+                         + "|  " + wl3 + " " + wl4);
+        System.out.println("|     ");
+        System.out.println("|     ");  
+        System.out.println("|     ");
+        System.out.println("===========");
+        }
+        if (badGuesses == 5){
+        System.out.println("===========");
+        System.out.println("|   " + wl +"\n"
+                         + "|   " + wl2 +"\n"
+                         + "|  " + wl3 + " " + wl4 +"\n"
+                         + "|   "  + wl5);  
+        System.out.println("|     ");
+        System.out.println("|     ");
+        System.out.println("===========");
+        }
+        if (badGuesses == 6){
+        System.out.println("===========");
+        System.out.println("|   " + wl +"\n"
+                         + "|   " + wl2 +"\n"
+                         + "|  " + wl3 + " " + wl4 +"\n"
+                         + "|   "  + wl5 +"\n"
+                         + "| "+ wl6);
+        System.out.println("|     ");  
+        System.out.println("===========");
+        }
+        if (badGuesses == 7){
+        System.out.println("===========");
+        System.out.println("|   " + wl +"\n"
+                         + "|   " + wl2 +"\n"
+                         + "|  " + wl3 + " " + wl4 +"\n"
+                         + "|   "  + wl5 +"\n"
+                         + "| " + wl7); 
+        System.out.println("Sorry, You Lose. \n Better Luck Next Time!");
+    
+        run = false; 
+
+        }  
+    }
+        
+        
+               
+
+    private boolean gameOver() {
+        return false; 
+        
+    }
+
+    private void handleGuess(char ch) {
+        
+        boolean incorrect = true; 
+       
+        for (int i = 0; i < this.wordIs.length(); i++){
+            if (this.wordIs.charAt(i) == ch)
+            {
+                correctLetters.remove(i);
+                correctLetters.add(i, ch);  
+            correctGuesses++;   
+            incorrect = false;  
+
+            }     
+            
+        }
+        if (incorrect)
+            incorrectLetters.add(ch);
+       
+        if (correctGuesses == wordIs.chars().count()){
+            
+            won = true; 
+            run = false; 
+            
+        }
+        
+    }
+
+    private boolean gameWon() {
+        return false; 
+    }
+    
+    }
